@@ -1,0 +1,6 @@
+@backend_assignment_and_management_project.API_HostAddress = http://localhost:5080
+
+GET {{backend_assignment_and_management_project.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

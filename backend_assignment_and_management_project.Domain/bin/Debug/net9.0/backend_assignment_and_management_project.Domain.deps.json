@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "backend_assignment_and_management_project.Domain/1.0.0": {
+        "runtime": {
+          "backend_assignment_and_management_project.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "backend_assignment_and_management_project.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

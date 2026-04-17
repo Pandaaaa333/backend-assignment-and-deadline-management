@@ -1,0 +1,206 @@
+{
+  "format": 1,
+  "restore": {
+    "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Infrastructure\\backend_assignment_and_management_project.Infrastructure.csproj": {}
+  },
+  "projects": {
+    "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Application\\backend_assignment_and_management_project.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Application\\backend_assignment_and_management_project.Application.csproj",
+        "projectName": "backend_assignment_and_management_project.Application",
+        "projectPath": "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Application\\backend_assignment_and_management_project.Application.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Domain\\backend_assignment_and_management_project.Domain.csproj": {
+                "projectPath": "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Domain\\backend_assignment_and_management_project.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Domain\\backend_assignment_and_management_project.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Domain\\backend_assignment_and_management_project.Domain.csproj",
+        "projectName": "backend_assignment_and_management_project.Domain",
+        "projectPath": "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Domain\\backend_assignment_and_management_project.Domain.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Infrastructure\\backend_assignment_and_management_project.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Infrastructure\\backend_assignment_and_management_project.Infrastructure.csproj",
+        "projectName": "backend_assignment_and_management_project.Infrastructure",
+        "projectPath": "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Infrastructure\\backend_assignment_and_management_project.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Application\\backend_assignment_and_management_project.Application.csproj": {
+                "projectPath": "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Application\\backend_assignment_and_management_project.Application.csproj"
+              },
+              "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Domain\\backend_assignment_and_management_project.Domain.csproj": {
+                "projectPath": "F:\\DoAn_Flutter\\backend_assignment_and_deadline_management_project\\backend_assignment_and_management_project.Domain\\backend_assignment_and_management_project.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

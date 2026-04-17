@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\backend_assignment_and_management_project.API.props" />
+</Project>
