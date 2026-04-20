@@ -1,0 +1,12 @@
+**/.git
+**/.gitignore
+**/.vscode
+**/bin
+**/obj
+**/out
+**/appsettings.Development.json
+**/*.db
+**/*.db-journal
+Dockerfile
+.dockerignore
+.github

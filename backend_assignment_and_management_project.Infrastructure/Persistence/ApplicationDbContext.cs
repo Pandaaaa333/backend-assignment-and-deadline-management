@@ -7,23 +7,38 @@ namespace backend_assignment_and_deadline_management_project.Infrastructure.Pers
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        // Đăng ký các thực thể (Bảng) theo đúng sơ đồ của bạn
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Subject> Subjects { get; set; }
-        // Các bảng khác (Posts, Comments...) bạn sẽ thêm tương tự sau này
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<StudyFile> StudyFiles { get; set; }
+        public DbSet<StudyLog> StudyLogs { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<UserActivityLog> UserActivityLogs { get; set; }
+        public DbSet<SystemLog> SystemLogs { get; set; }
+        public DbSet<UserSubject> UserSubjects { get; set; }
+        public DbSet<PostLike> PostLikes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Cấu hình để EF Core tự động chuyển tên bảng và cột sang snake_case như trong ảnh ERD
+            modelBuilder.Entity<UserSubject>()
+                .HasKey(us => new { us.UserId, us.SubjectId });
+
+            modelBuilder.Entity<PostLike>()
+                .HasKey(pl => new { pl.PostId, pl.UserId });
+
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
             {
-                // Ví dụ: Đổi tên bảng từ "Users" thành "users"
-                entity.SetTableName(entity.GetTableName()?.ToLower());
+                var tableName = entity.GetTableName();
+                if (!string.IsNullOrEmpty(tableName))
+                {
+                    entity.SetTableName(tableName.ToLower());
+                }
 
-                // Ví dụ: Đổi tên cột từ "AvatarUrl" thành "avatar_url"
                 foreach (var property in entity.GetProperties())
                 {
                     property.SetColumnName(System.Text.RegularExpressions.Regex.Replace(
