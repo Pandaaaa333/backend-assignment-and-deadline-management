@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using backend_assignment_and_deadline_management_project.Domain.Entities;
+using backend_assignment_and_management_project.Domain.Entities;
 
-namespace backend_assignment_and_deadline_management_project.Infrastructure.Persistence
+namespace backend_assignment_and_management_project.Infrastructure.Persistence
 {
     public class ApplicationDbContext : DbContext
     {

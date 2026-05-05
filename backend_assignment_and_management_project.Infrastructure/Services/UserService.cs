@@ -1,11 +1,11 @@
-using backend_assignment_and_deadline_management_project.Application.DTOs;
-using backend_assignment_and_deadline_management_project.Application.Interfaces;
-using backend_assignment_and_deadline_management_project.Domain.Entities;
-using backend_assignment_and_deadline_management_project.Infrastructure.Persistence;
+using backend_assignment_and_management_project.Application.DTOs;
+using backend_assignment_and_management_project.Application.Interfaces;
+using backend_assignment_and_management_project.Domain.Entities;
+using backend_assignment_and_management_project.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using BC = BCrypt.Net.BCrypt;
 
-namespace backend_assignment_and_deadline_management_project.Infrastructure.Services
+namespace backend_assignment_and_management_project.Infrastructure.Services
 {
     public class UserService : IUserService
     {

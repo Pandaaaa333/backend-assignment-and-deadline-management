@@ -26,7 +26,6 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Expose ports (adjust if your project uses different ones)
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "backend_assignment_and_management_project.API.dll"]

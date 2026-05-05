@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <ProjectReference Include="..\backend_assignment_and_management_project.Domain\backend_assignment_and_management_project.Domain.csproj" />

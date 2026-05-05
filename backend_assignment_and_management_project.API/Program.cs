@@ -1,17 +1,30 @@
 using System.Text;
-using backend_assignment_and_deadline_management_project.Application.Interfaces;
-using backend_assignment_and_deadline_management_project.Infrastructure.Persistence;
-using backend_assignment_and_deadline_management_project.Infrastructure.Services;
+using backend_assignment_and_management_project.Application.Interfaces;
+using backend_assignment_and_management_project.Infrastructure.Persistence;
+using backend_assignment_and_management_project.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.OpenApi.Models;
+using backend_assignment_and_management_project.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // 1. Thêm Controller
 builder.Services.AddControllers();
+
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
 
 // 2. Cấu hình OpenAPI/Swagger với hỗ trợ JWT Bearer
 builder.Services.AddEndpointsApiExplorer();
@@ -71,6 +84,7 @@ builder.Services.AddAuthentication(options =>
 // 5. Đăng ký các Service (Dependency Injection)
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IBlogService, BlogService>();
 
 var app = builder.Build();
 
@@ -89,9 +103,53 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowAll");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+// Seed Data
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    context.Database.EnsureCreated();
+
+    // 1. Seed Roles
+    if (!context.Roles.Any())
+    {
+        context.Roles.AddRange(
+            new Role { Name = "Admin" },
+            new Role { Name = "User" }
+        );
+        context.SaveChanges();
+    }
+
+    var adminRole = context.Roles.First(r => r.Name == "Admin");
+
+    // 2. Seed Admin User
+    var adminUser = context.Users.FirstOrDefault(u => u.Email == "admin@gmail.com");
+    if (adminUser == null)
+    {
+        adminUser = new User
+        {
+            Name = "System Admin",
+            Email = "admin@gmail.com",
+            Password = BCrypt.Net.BCrypt.HashPassword("admin123"),
+            RoleId = adminRole.Id
+        };
+        context.Users.Add(adminUser);
+        context.SaveChanges();
+    }
+
+    // 3. Seed Subjects
+    await DbInitializer.Seed(context);
+    
+    var subjects = await context.Subjects.ToListAsync();
+
+    // 4. Seed Posts (Commented out to stop mock data generation)
+    // await DbInitializer.SeedPosts(context, adminUser);
+}
+
+app.Run();

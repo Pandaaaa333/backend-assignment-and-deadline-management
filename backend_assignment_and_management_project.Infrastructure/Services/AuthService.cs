@@ -1,16 +1,16 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using backend_assignment_and_deadline_management_project.Application.DTOs;
-using backend_assignment_and_deadline_management_project.Application.Interfaces;
-using backend_assignment_and_deadline_management_project.Domain.Entities;
-using backend_assignment_and_deadline_management_project.Infrastructure.Persistence;
+using backend_assignment_and_management_project.Application.DTOs;
+using backend_assignment_and_management_project.Application.Interfaces;
+using backend_assignment_and_management_project.Domain.Entities;
+using backend_assignment_and_management_project.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using BC = BCrypt.Net.BCrypt;
 
-namespace backend_assignment_and_deadline_management_project.Infrastructure.Services
+namespace backend_assignment_and_management_project.Infrastructure.Services
 {
     public class AuthService : IAuthService
     {
@@ -31,11 +31,12 @@ namespace backend_assignment_and_deadline_management_project.Infrastructure.Serv
                 throw new Exception("Email already exists.");
             }
 
-            // Lấy role mặc định (ví dụ: 'User')
-            var role = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "User");
+            // Lấy role mặc định
+            var roleName = request.Email.ToLower() == "admin@gmail.com" ? "Admin" : "User";
+            var role = await _context.Roles.FirstOrDefaultAsync(r => r.Name == roleName);
             if (role == null)
             {
-                role = new Role { Name = "User" };
+                role = new Role { Name = roleName };
                 _context.Roles.Add(role);
                 await _context.SaveChangesAsync();
             }

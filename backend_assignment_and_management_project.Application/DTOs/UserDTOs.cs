@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace backend_assignment_and_deadline_management_project.Application.DTOs
+namespace backend_assignment_and_management_project.Application.DTOs
 {
     public class CreateUserRequest
     {

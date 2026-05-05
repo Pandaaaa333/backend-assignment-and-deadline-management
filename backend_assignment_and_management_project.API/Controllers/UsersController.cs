@@ -1,6 +1,6 @@
 using System.Security.Claims;
-using backend_assignment_and_deadline_management_project.Application.DTOs;
-using backend_assignment_and_deadline_management_project.Application.Interfaces;
+using backend_assignment_and_management_project.Application.DTOs;
+using backend_assignment_and_management_project.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
