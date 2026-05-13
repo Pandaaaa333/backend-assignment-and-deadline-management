@@ -45,6 +45,8 @@ namespace backend_assignment_and_management_project.Application.DTOs
 
         [MinLength(6)]
         public string? NewPassword { get; set; }
+
+        public string? AvatarUrl { get; set; }
     }
 
     public class ChangeRoleRequest

@@ -16,11 +16,13 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
+        private readonly IStorageService _storageService;
 
-        public AuthService(ApplicationDbContext context, IConfiguration configuration)
+        public AuthService(ApplicationDbContext context, IConfiguration configuration, IStorageService storageService)
         {
             _context = context;
             _configuration = configuration;
+            _storageService = storageService;
         }
 
         public async Task<AuthResponse> RegisterAsync(RegisterRequest request)
@@ -62,6 +64,7 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
                     Id = user.Id,
                     Name = user.Name,
                     Email = user.Email,
+                    AvatarUrl = !string.IsNullOrEmpty(user.AvatarUrl) ? await _storageService.GetPresignedUrlAsync(user.AvatarUrl) : null,
                     Role = role.Name
                 }
             };
@@ -88,7 +91,7 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
                     Id = user.Id,
                     Name = user.Name,
                     Email = user.Email,
-                    AvatarUrl = user.AvatarUrl,
+                    AvatarUrl = !string.IsNullOrEmpty(user.AvatarUrl) ? await _storageService.GetPresignedUrlAsync(user.AvatarUrl) : null,
                     Role = user.Role.Name
                 }
             };
@@ -110,7 +113,7 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
                 Id = user.Id,
                 Name = user.Name,
                 Email = user.Email,
-                AvatarUrl = user.AvatarUrl,
+                AvatarUrl = !string.IsNullOrEmpty(user.AvatarUrl) ? await _storageService.GetPresignedUrlAsync(user.AvatarUrl) : null,
                 Role = user.Role.Name
             };
         }

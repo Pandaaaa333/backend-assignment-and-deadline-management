@@ -42,5 +42,21 @@ services:
     depends_on:
       - backend
 
+  # 4. MinIO Object Storage Service
+  minio:
+    image: minio/minio
+    container_name: study-management-minio
+    restart: always
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadminpassword
+    ports:
+      - "9000:9000" # API
+      - "9001:9001" # Console
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+
 volumes:
   postgres_data:
+  minio_data:

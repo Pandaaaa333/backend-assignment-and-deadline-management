@@ -3,6 +3,7 @@ using backend_assignment_and_management_project.Application.DTOs;
 using backend_assignment_and_management_project.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace backend_assignment_and_management_project.API.Controllers
 {
@@ -12,10 +13,12 @@ namespace backend_assignment_and_management_project.API.Controllers
     public class PostsController : ControllerBase
     {
         private readonly IBlogService _blogService;
+        private readonly IStorageService _storageService;
 
-        public PostsController(IBlogService blogService)
+        public PostsController(IBlogService blogService, IStorageService storageService)
         {
             _blogService = blogService;
+            _storageService = storageService;
         }
 
         private Guid GetCurrentUserId()
@@ -48,6 +51,34 @@ namespace backend_assignment_and_management_project.API.Controllers
             var userId = GetCurrentUserId();
             var post = await _blogService.CreatePostAsync(userId, dto);
             return CreatedAtAction(nameof(GetPostById), new { id = post.Id }, post);
+        }
+
+        [HttpPost("with-image")]
+        public async Task<IActionResult> CreatePostWithImage([FromForm] string content, [FromForm] Guid subjectId, IFormFile? image)
+        {
+            try
+            {
+                var userId = GetCurrentUserId();
+                string? imageUrl = null;
+                if (image != null && image.Length > 0)
+                {
+                    imageUrl = await _storageService.UploadFileAsync(image.OpenReadStream(), image.FileName, image.ContentType, "posts");
+                }
+                
+                var dto = new CreatePostDto
+                {
+                    Content = content,
+                    SubjectId = subjectId,
+                    ImageUrl = imageUrl
+                };
+                
+                var post = await _blogService.CreatePostAsync(userId, dto);
+                return CreatedAtAction(nameof(GetPostById), new { id = post.Id }, post);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPut("{id}")]

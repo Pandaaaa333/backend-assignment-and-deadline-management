@@ -20,6 +20,7 @@ namespace backend_assignment_and_management_project.Infrastructure.Persistence
         public DbSet<SystemLog> SystemLogs { get; set; }
         public DbSet<UserSubject> UserSubjects { get; set; }
         public DbSet<PostLike> PostLikes { get; set; }
+        public DbSet<TodoTask> TodoTasks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

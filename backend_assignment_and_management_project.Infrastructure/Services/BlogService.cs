@@ -9,10 +9,12 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
     public class BlogService : IBlogService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IStorageService _storageService;
 
-        public BlogService(ApplicationDbContext context)
+        public BlogService(ApplicationDbContext context, IStorageService storageService)
         {
             _context = context;
+            _storageService = storageService;
         }
 
         public async Task<IEnumerable<SubjectDto>> GetSubjectsAsync()
@@ -70,11 +72,11 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
                 {
                     Id = post.Id,
                     Content = post.Content,
-                    ImageUrl = post.ImageUrl,
+                    ImageUrl = !string.IsNullOrEmpty(post.ImageUrl) ? await _storageService.GetPresignedUrlAsync(post.ImageUrl) : null,
                     CreatedAt = post.CreatedAt,
                     UserId = post.UserId,
                     UserName = post.User.Name,
-                    UserAvatar = post.User.AvatarUrl,
+                    UserAvatar = !string.IsNullOrEmpty(post.User.AvatarUrl) ? await _storageService.GetPresignedUrlAsync(post.User.AvatarUrl) : null,
                     SubjectId = post.SubjectId,
                     SubjectName = post.Subject.Name,
                     LikeCount = likeCount,
@@ -103,11 +105,11 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
             {
                 Id = post.Id,
                 Content = post.Content,
-                ImageUrl = post.ImageUrl,
+                ImageUrl = !string.IsNullOrEmpty(post.ImageUrl) ? await _storageService.GetPresignedUrlAsync(post.ImageUrl) : null,
                 CreatedAt = post.CreatedAt,
                 UserId = post.UserId,
                 UserName = post.User.Name,
-                UserAvatar = post.User.AvatarUrl,
+                UserAvatar = !string.IsNullOrEmpty(post.User.AvatarUrl) ? await _storageService.GetPresignedUrlAsync(post.User.AvatarUrl) : null,
                 SubjectId = post.SubjectId,
                 SubjectName = post.Subject.Name,
                 LikeCount = likeCount,
@@ -191,7 +193,7 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
 
         public async Task<IEnumerable<CommentDto>> GetCommentsAsync(Guid postId)
         {
-            return await _context.Comments
+            var comments = await _context.Comments
                 .Include(c => c.User)
                 .Where(c => c.PostId == postId)
                 .OrderByDescending(c => c.CreatedAt)
@@ -205,6 +207,16 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
                     UserAvatar = c.User.AvatarUrl
                 })
                 .ToListAsync();
+            
+            // Resolve avatars for comments
+            foreach (var comment in comments)
+            {
+                if (!string.IsNullOrEmpty(comment.UserAvatar))
+                {
+                    comment.UserAvatar = await _storageService.GetPresignedUrlAsync(comment.UserAvatar);
+                }
+            }
+            return comments;
         }
 
         public async Task<CommentDto> AddCommentAsync(Guid userId, Guid postId, CreateCommentDto dto)
@@ -229,7 +241,7 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
                 CreatedAt = comment.CreatedAt,
                 UserId = userId,
                 UserName = user?.Name ?? "Unknown",
-                UserAvatar = user?.AvatarUrl
+                UserAvatar = !string.IsNullOrEmpty(user?.AvatarUrl) ? await _storageService.GetPresignedUrlAsync(user.AvatarUrl) : null
             };
         }
 

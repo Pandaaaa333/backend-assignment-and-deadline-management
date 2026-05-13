@@ -85,6 +85,9 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBlogService, BlogService>();
+builder.Services.AddScoped<ISelfLearnService, SelfLearnService>();
+builder.Services.AddScoped<ITodoService, TodoService>();
+builder.Services.AddScoped<IStorageService, MinioStorageService>();
 
 var app = builder.Build();
 

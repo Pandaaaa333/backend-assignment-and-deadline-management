@@ -10,25 +10,33 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IStorageService _storageService;
 
-        public UserService(ApplicationDbContext context)
+        public UserService(ApplicationDbContext context, IStorageService storageService)
         {
             _context = context;
+            _storageService = storageService;
         }
 
         public async Task<IEnumerable<UserResponse>> GetAllAsync()
         {
-            return await _context.Users
+            var users = await _context.Users
                 .Include(u => u.Role)
-                .Select(u => new UserResponse
+                .ToListAsync();
+
+            var userResponses = new List<UserResponse>();
+            foreach (var u in users)
+            {
+                userResponses.Add(new UserResponse
                 {
                     Id = u.Id,
                     Name = u.Name,
                     Email = u.Email,
-                    AvatarUrl = u.AvatarUrl,
+                    AvatarUrl = !string.IsNullOrEmpty(u.AvatarUrl) ? await _storageService.GetPresignedUrlAsync(u.AvatarUrl) : null,
                     Role = u.Role.Name
-                })
-                .ToListAsync();
+                });
+            }
+            return userResponses;
         }
 
         public async Task<UserResponse> GetByIdAsync(Guid id)
@@ -44,7 +52,7 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
                 Id = user.Id,
                 Name = user.Name,
                 Email = user.Email,
-                AvatarUrl = user.AvatarUrl,
+                AvatarUrl = !string.IsNullOrEmpty(user.AvatarUrl) ? await _storageService.GetPresignedUrlAsync(user.AvatarUrl) : null,
                 Role = user.Role.Name
             };
         }
@@ -117,7 +125,7 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
                 Id = user.Id,
                 Name = user.Name,
                 Email = user.Email,
-                AvatarUrl = user.AvatarUrl,
+                AvatarUrl = !string.IsNullOrEmpty(user.AvatarUrl) ? await _storageService.GetPresignedUrlAsync(user.AvatarUrl) : null,
                 Role = user.Role.Name
             };
         }
@@ -183,6 +191,11 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
                 user.Password = BC.HashPassword(request.NewPassword);
             }
 
+            if (!string.IsNullOrEmpty(request.AvatarUrl))
+            {
+                user.AvatarUrl = request.AvatarUrl;
+            }
+
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
 
@@ -191,7 +204,7 @@ namespace backend_assignment_and_management_project.Infrastructure.Services
                 Id = user.Id,
                 Name = user.Name,
                 Email = user.Email,
-                AvatarUrl = user.AvatarUrl,
+                AvatarUrl = !string.IsNullOrEmpty(user.AvatarUrl) ? await _storageService.GetPresignedUrlAsync(user.AvatarUrl) : null,
                 Role = user.Role.Name
             };
         }
